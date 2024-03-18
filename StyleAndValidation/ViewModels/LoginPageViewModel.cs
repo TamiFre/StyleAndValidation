@@ -54,11 +54,26 @@ namespace StyleAndValidation.ViewModels
         {
             appServices = service;
 
-            LoginCommand = new Command(async() => {bool success= await appServices.Login(Username, Password);  if (success) await AppShell.Current.GoToAsync("///MyPage"); });
-            RegisterCommand = new Command(async () => { await AppShell.Current.GoToAsync("Register"); });
+            LoginCommand = new Command(async() => 
+            {
+                #region מסך טעינה
+                await AppShell.Current.GoToAsync("Loading");
+                var loading = AppShell.Current.CurrentPage.BindingContext as LoadingPageViewModel;
+                #endregion 
+                bool success= await appServices.Login(Username, Password);
+                #region סגירת מסך טעינה
+                await loading.Close();
+                #endregion
+                if (success) await AppShell.Current.GoToAsync("///MyPage");
+            });
+                RegisterCommand = new Command(async () => { await AppShell.Current.GoToAsync("Register"); });
             ForgotPasswordCommand = new Command( () => { });
             ShowPasswordCommand = new Command(() => ShowPassword = !ShowPassword);
             ShowPassword = true;
         }
+
+
+
+
     }
 }

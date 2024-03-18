@@ -9,6 +9,9 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="errorMsgStyleLabel" TargetType="Label">
+                <Setter Property="TextColor" Value="Red" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

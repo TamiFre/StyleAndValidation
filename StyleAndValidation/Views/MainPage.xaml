@@ -19,6 +19,8 @@
                 <Setter Property="BackgroundColor" Value="LightBlue" />
                 <Setter Property="CornerRadius" Value="35" />
             </Style>
+
+          
         </ResourceDictionary>
     </ContentPage.Resources>
 
