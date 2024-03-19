@@ -16,11 +16,26 @@ namespace StyleAndValidation.ViewModels
         string username;
         string password;
         bool showPassword;
+
+
         #endregion
 
         #region Properties
-        public string Password { get => password; set { password = value; OnPropertyChanged(); } }
+        public string Password { get => password; 
+            set 
+            {
+                if (password != null)
+                {
+                    password = value;
+                    OnPropertyChanged();
+                    var cmd = LoginCommand as Command;
+                    cmd.ChangeCanExecute();
+                }
+            } 
+        }
         public bool ShowPassword { get => showPassword; set{ showPassword = value; OnPropertyChanged(); } }
+
+
         public string Username
         {
             get => username;
@@ -48,30 +63,52 @@ namespace StyleAndValidation.ViewModels
 
         public ICommand ShowPasswordCommand { get; protected set; }
 
+
+      
+      
+        
         #endregion
 
         public LoginPageViewModel(AppServices service)
         {
             appServices = service;
 
-            LoginCommand = new Command(async() => 
+            LoginCommand = new Command(async () =>
             {
+
+
+
                 #region מסך טעינה
                 await AppShell.Current.GoToAsync("Loading");
                 var loading = AppShell.Current.CurrentPage.BindingContext as LoadingPageViewModel;
-                #endregion 
-                bool success= await appServices.Login(Username, Password);
+                #endregion
+                bool success = await appServices.Login(Username, Password);
                 #region סגירת מסך טעינה
-                await loading.Close();
+                //await loading.Close();
+                await AppShell.Current.Navigation.PopModalAsync();
                 #endregion
                 if (success) await AppShell.Current.GoToAsync("///MyPage");
-            });
+
+            }
+          
+            , ()=> { return !string.IsNullOrEmpty(Username)
+               // && !string.IsNullOrEmpty(Password)
+                ;
+            }); 
+
                 RegisterCommand = new Command(async () => { await AppShell.Current.GoToAsync("Register"); });
             ForgotPasswordCommand = new Command( () => { });
             ShowPasswordCommand = new Command(() => ShowPassword = !ShowPassword);
             ShowPassword = true;
+
+
+           
         }
 
+        
+
+       
+        
 
 
 

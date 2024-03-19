@@ -24,12 +24,10 @@
         <Entry IsPassword="{Binding ShowPassword}" Text="{Binding Password}" />
         <Button
             Margin="0,-42,0,0"
-            Background="Transparent"
-            BorderColor="Transparent"
             Command="{Binding ShowPasswordCommand}"
             HorizontalOptions="End"
+            Style="{StaticResource specialBtnsStyleBtn}"
             Text="הצג/הסתר סיסמה"
-            TextColor="Black"
             ZIndex="2" />
         <Button
             Command="{Binding LoginCommand}"
@@ -41,6 +39,7 @@
                 Command="{Binding RegisterCommand}"
                 FontAttributes="Bold"
                 FontSize="15"
+                Style="{StaticResource specialBtnsStyleBtn}"
                 Text="הרשמה"
                 TextColor="black"
                 VerticalOptions="Center" />
@@ -48,6 +47,7 @@
                 Background="Transparent"
                 Command="{Binding ForgotPasswordCommand}"
                 HorizontalOptions="End"
+                Style="{StaticResource specialBtnsStyleBtn}"
                 Text="שכחתי סיסמה"
                 TextColor="Black"
                 VerticalOptions="End" />

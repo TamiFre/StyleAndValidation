@@ -82,7 +82,9 @@ namespace StyleAndValidation.ViewModels
             bool ok = await appServices.RegisterUserAsync(registered);
 
             #region סגירת מסך טעינה
-            await loading.Close();
+
+            //await loading.Close();
+            await AppShell.Current.Navigation.PopModalAsync();
             #endregion
             if (ok)
             {
@@ -131,6 +133,14 @@ namespace StyleAndValidation.ViewModels
         private bool ValidateAll()
         {
             return !ShowUserNameError;
+        }
+
+
+        private bool ValidatePassword()
+        {
+            string pattern = "^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{4,16}$";
+
+            bool ok = Regex.IsMatch(Password, pattern);
         }
 
         #endregion
